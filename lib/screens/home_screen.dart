@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_app/model/weather_model.dart';
 import 'package:weather_app/services/api_services.dart';
@@ -16,15 +15,15 @@ class HomeScreen extends StatefulWidget {
 
 
 class _HomeScreenState extends State<HomeScreen> {
-  // create ApiService instance
-  ApiService apiService = ApiService();
-
   final TextEditingController _searchTextField = TextEditingController();
   String searchText = 'auto:ip';
 
+  // create ApiService instance
+  ApiService apiService = ApiService();
+
 
   // search Dialog box
-  _showTextInputDialog(BuildContext context) async{
+   _showTextInputDialog(BuildContext context) async{
     return showDialog(context: context, builder: (context){
       return AlertDialog(
         backgroundColor: Colors.teal[300],
@@ -85,39 +84,44 @@ class _HomeScreenState extends State<HomeScreen> {
           }, icon:const Icon(Icons.location_on)),
         ],
       ),
-      body: SafeArea(
-        child: FutureBuilder(
-         future: apiService.getWeatherData(searchText),
-         builder:(context, snapshot) {
-           if(snapshot.hasData){
-             WeatherModel? weatherModel = snapshot.data;
-             return SizedBox(
-               child: Column(
-                 children: [
-                   TodaysWeather(weatherModel: weatherModel),
-
-                   const SizedBox(height: 10),
-                   const Text("Weather By Hours",style: TextStyle(fontSize: 20,color: Colors.white),),
-
-                   const SizedBox(height: 10),
-                   WeatherByHours(weatherModel: weatherModel),
-
-                   const SizedBox(height: 10),
-                   const Text("Next 7 Days Weather",style: TextStyle(fontSize: 20,color: Colors.white),),
-
-                   const SizedBox(height: 10),
-                   WeatherByDays(weatherModel: weatherModel),
-                 ],
-               ),
-             );
-           }
-           if(snapshot.hasError){
-             return const Center( child: Text("Error has occurred.",style: TextStyle(color: Colors.pink, fontSize: 15),),);
-           }
-
-           return const Center(child: CircularProgressIndicator());
-
-         },
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: FutureBuilder(
+           future: apiService.getWeatherData(searchText),
+           builder:(context, snapshot) {
+             if(snapshot.hasData){
+               WeatherModel? weatherModel = snapshot.data;
+               return SizedBox(
+                 height: MediaQuery.of(context).size.height,
+                 width: MediaQuery.of(context).size.width,
+                 child: Column(
+                   children: [
+                     TodaysWeather(weatherModel: weatherModel),
+        
+                     const SizedBox(height: 10),
+                     const Text("Weather By Hours",style: TextStyle(fontSize: 20,color: Colors.white),),
+        
+                     const SizedBox(height: 10),
+                     WeatherByHours(weatherModel: weatherModel),
+        
+                     const SizedBox(height: 10),
+                     const Text("Next 7 Days Weather",style: TextStyle(fontSize: 20,color: Colors.white),),
+        
+                     const SizedBox(height: 10),
+                     WeatherByDays(weatherModel: weatherModel),
+                     const SizedBox(height: 10),
+                   ],
+                 ),
+               );
+             }
+             if(snapshot.hasError){
+               return const Center( child: Text("Error has occurred.",style: TextStyle(color: Colors.black, fontSize: 15),),);
+             }
+        
+             return const Center(child: CircularProgressIndicator());
+        
+           },
+          ),
         ),
       ),
     );

@@ -293,8 +293,8 @@ class Day {
   Condition? condition;
   double? uv;
 
-  Day(
-      {this.maxtempC,
+  Day({
+        this.maxtempC,
         this.maxtempF,
         this.mintempC,
         this.mintempF,
@@ -313,7 +313,8 @@ class Day {
         this.dailyWillItSnow,
         this.dailyChanceOfSnow,
         this.condition,
-        this.uv});
+        this.uv
+      });
 
   Day.fromJson(Map<String, dynamic> json) {
     maxtempC = json['maxtemp_c'];

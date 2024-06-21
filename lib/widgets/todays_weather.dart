@@ -14,7 +14,6 @@ class TodaysWeather extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-
     WeatherType _getWeatherType(Current? current) {
       if (current?.isDay == 1) {
         if (current?.condition?.text == "Sunny") {
@@ -167,7 +166,7 @@ class TodaysWeather extends StatelessWidget {
                           children: [
                             const Text("Feels Like",
                                 style: TextStyle(color: Colors.white,fontSize: 15, fontWeight: FontWeight.bold)),
-                            Text(weatherModel?.current?.feelslikeC?.round().toString() ?? '',
+                            Text("${weatherModel?.current?.feelslikeC?.round().toString() ?? ''}°",
                                 style: const TextStyle(color: Colors.white,fontSize: 15, fontWeight: FontWeight.bold)),
                           ],
                         ),
