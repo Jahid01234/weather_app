@@ -4,7 +4,11 @@ import 'package:intl/intl.dart';
 
 class WeatherByDays extends StatelessWidget {
   final WeatherModel? weatherModel;
-  const WeatherByDays({super.key, required this.weatherModel});
+
+  const WeatherByDays({
+    super.key,
+    required this.weatherModel,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +26,7 @@ class WeatherByDays extends StatelessWidget {
               width: double.infinity,
               decoration: BoxDecoration(
                   color: Colors.white24,
-                  borderRadius: BorderRadius.circular(20)
+                  borderRadius: BorderRadius.circular(20),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -32,40 +36,48 @@ class WeatherByDays extends StatelessWidget {
                       height: 40,
                       decoration: const BoxDecoration(
                           color: Colors.white,
-                          shape: BoxShape.circle
+                          shape: BoxShape.circle,
                       ),
                       child: Image.network(
                           "http:${nextDayData?.day?.condition?.icon ?? ''}"
-
-                      )
+                      ),
                   ),
                   const SizedBox(width: 5.0),
                   // day and date show
                   Expanded(
-                    child: Text(DateFormat.MMMEd().format(DateTime.parse(nextDayData?.date?.toString() ?? '')),
-                      style: const TextStyle(color: Colors.white,fontSize: 15),
+                    child: Text(
+                      DateFormat.MMMEd().format(DateTime.parse(nextDayData?.date?.toString() ?? '')),
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                      ),
                     ),
                   ),
                   // weather name show
                   Expanded(
-                    child: Text(nextDayData?.day?.condition?.text?.toString() ?? '',
-                      style: const TextStyle(color: Colors.white,fontSize: 14),
+                    child: Text(
+                      nextDayData?.day?.condition?.text?.toString() ?? '',
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                      ),
                     ),
                   ),
 
                   // show maxTempC/ mimTempC
                   Wrap(
                     children: [
-                      Text("^${nextDayData?.day?.maxtempC?.round().toString() ?? ''}/${nextDayData?.day?.mintempC?.round().toString() ?? ''}",
-                        style: const TextStyle(color: Colors.white,fontSize: 15),
+                      Text(
+                        "^${nextDayData?.day?.maxtempC?.round().toString() ?? ''}/${nextDayData?.day?.mintempC?.round().toString() ?? ''}",
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                        ),
                       ),
                     ],
                   ),
-
-
                 ],
               ),
-
             );
           }
       ),

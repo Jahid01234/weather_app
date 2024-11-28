@@ -4,7 +4,11 @@ import 'package:intl/intl.dart';
 
 class WeatherByHours extends StatelessWidget {
   final WeatherModel? weatherModel;
-  const WeatherByHours({super.key, required this.weatherModel});
+
+  const WeatherByHours({
+    super.key,
+    required this.weatherModel,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +39,22 @@ class WeatherByHours extends StatelessWidget {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(top: 3.0),
-                          child: Text(hourData?.tempC?.round().toString() ?? '',
-                              style: const TextStyle(color: Colors.white,fontSize: 15, fontWeight: FontWeight.bold)),
+                          child: Text(
+                              hourData?.tempC?.round().toString() ?? '',
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                              ),
+                          ),
                         ),
-                        const Text("o",
+                        const Text(
+                          "o",
                           style: TextStyle(
-                              fontSize: 11,fontWeight: FontWeight.bold,color: Colors.pink),
+                              fontSize: 11,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.pink,
+                          ),
                         ),
                       ],
                     ),
@@ -53,18 +67,20 @@ class WeatherByHours extends StatelessWidget {
                       ),
                       child: Image.network(
                           "http:${hourData?.condition?.icon ?? ''}"
-
-                     )
+                      ),
                     ),
                     // time show
-                    Text(DateFormat.j().format(DateTime.parse(hourData?.time.toString() ?? '')),
-                      style: const TextStyle(color: Colors.white,fontSize: 15),
-                    )
+                    Text(
+                      DateFormat.j().format(DateTime.parse(hourData?.time.toString() ?? '')),
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                      ),
+                    ),
                   ],
                 ),
-                
               );
-          }
+          },
       ),
     );
   }

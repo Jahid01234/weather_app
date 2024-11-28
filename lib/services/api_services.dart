@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:weather_app/model/weather_model.dart';
+import '../constant/constant.dart';
 
 class ApiService{
 
@@ -8,7 +9,7 @@ class ApiService{
 
        try{
          // step-1: set the url
-         String url = 'http://api.weatherapi.com/v1/forecast.json?key=aead3df92efc403b850155712242205&q=$searchText&days=7';
+         String url = "$base_url&q=$searchText&days=7";
 
          // step-2 = Parse Url into uri
          Uri uri = Uri.parse(url);
@@ -19,7 +20,8 @@ class ApiService{
          // step-4 : check status-code
          if(response.statusCode == 200){
            // decode the data
-           Map<String, dynamic> json = jsonDecode(response.body);
+           print(response.body);
+           final json = jsonDecode(response.body);
            WeatherModel weatherModel = WeatherModel.fromJson(json);
            return weatherModel;
 
@@ -30,7 +32,6 @@ class ApiService{
        } catch(e){
          throw e.toString();
        }
-
     }
 
  }

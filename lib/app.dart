@@ -14,7 +14,7 @@ class WeatherApp extends StatelessWidget {
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.white24,
           foregroundColor: Colors.white
-        )
+        ),
       ),
       home: const HomeScreen(),
     );

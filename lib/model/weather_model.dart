@@ -43,15 +43,16 @@ class Location {
   int? localtimeEpoch;
   String? localtime;
 
-  Location(
-      {this.name,
+  Location({
+        this.name,
         this.region,
         this.country,
         this.lat,
         this.lon,
         this.tzId,
         this.localtimeEpoch,
-        this.localtime});
+        this.localtime,
+  });
 
   Location.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -103,8 +104,8 @@ class Current {
   double? gustMph;
   double? gustKph;
 
-  Current(
-      {this.lastUpdatedEpoch,
+  Current({
+        this.lastUpdatedEpoch,
         this.lastUpdated,
         this.tempC,
         this.tempF,
@@ -126,7 +127,8 @@ class Current {
         this.visMiles,
         this.uv,
         this.gustMph,
-        this.gustKph});
+        this.gustKph,
+      });
 
   Current.fromJson(Map<String, dynamic> json) {
     lastUpdatedEpoch = json['last_updated_epoch'];
@@ -313,7 +315,7 @@ class Day {
         this.dailyWillItSnow,
         this.dailyChanceOfSnow,
         this.condition,
-        this.uv
+        this.uv,
       });
 
   Day.fromJson(Map<String, dynamic> json) {
@@ -379,15 +381,16 @@ class Astro {
   int? isMoonUp;
   int? isSunUp;
 
-  Astro(
-      {this.sunrise,
+  Astro({
+        this.sunrise,
         this.sunset,
         this.moonrise,
         this.moonset,
         this.moonPhase,
         this.moonIllumination,
         this.isMoonUp,
-        this.isSunUp});
+        this.isSunUp,
+  });
 
   Astro.fromJson(Map<String, dynamic> json) {
     sunrise = json['sunrise'];
@@ -450,8 +453,8 @@ class Hour {
   double? gustKph;
   double?  uv;
 
-  Hour(
-      {this.timeEpoch,
+  Hour({
+        this.timeEpoch,
         this.time,
         this.tempC,
         this.tempF,
@@ -484,7 +487,8 @@ class Hour {
         this.visMiles,
         this.gustMph,
         this.gustKph,
-        this.uv});
+        this.uv,
+  });
 
   Hour.fromJson(Map<String, dynamic> json) {
     timeEpoch = json['time_epoch'];
@@ -566,3 +570,9 @@ class Hour {
     return data;
   }
 }
+
+
+
+
+
+
