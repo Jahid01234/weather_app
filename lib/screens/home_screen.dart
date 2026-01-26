@@ -57,10 +57,11 @@ class _HomeScreenState extends State<HomeScreen> {
             }
 
             if (snapshot.hasError) {
-              return Center(
+              return const Center(
                 child: Text(
-                  snapshot.error.toString(),
-                  style: const TextStyle(color: Colors.white),
+                  //snapshot.error.toString(),
+                  "No data show......!!",
+                  style: TextStyle(color: Colors.white),
                 ),
               );
             }
