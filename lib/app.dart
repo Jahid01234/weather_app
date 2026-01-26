@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/screens/home_screen.dart';
+import 'package:weather_app/screens/splash_screen.dart';
 
 class WeatherApp extends StatelessWidget {
   const WeatherApp({super.key});
@@ -16,7 +16,7 @@ class WeatherApp extends StatelessWidget {
           foregroundColor: Colors.white
         ),
       ),
-      home: const HomeScreen(),
+      home: const SplashScreen(),
     );
   }
 }

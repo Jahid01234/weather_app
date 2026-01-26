@@ -13,10 +13,74 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final ApiService apiService = ApiService();
   final TextEditingController _searchTextField = TextEditingController();
   String searchText = 'auto:ip';
-  // create ApiService instance
-  final ApiService apiService = ApiService();
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.blueGrey,
+      appBar: AppBar(
+        title: const Text("Weather App"),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              _searchTextField.clear();
+              final text = await _showTextInputDialog(context);
+              if (text != null && text.isNotEmpty) {
+                setState(() {
+                  searchText = text;
+                });
+              }
+            },
+            icon: const Icon(Icons.search),
+          ),
+          IconButton(
+            onPressed: () {
+              searchText = "auto:ip";
+              setState(() {});
+            },
+            icon: const Icon(Icons.location_on),
+          ),
+        ],
+      ),
+
+      body: SafeArea(
+        child: FutureBuilder<WeatherModel>(
+          future: apiService.getWeatherData(searchText),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
+            if (snapshot.hasError) {
+              return Center(
+                child: Text(
+                  snapshot.error.toString(),
+                  style: const TextStyle(color: Colors.white),
+                ),
+              );
+            }
+
+            final weatherModel = snapshot.data!;
+            return  SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  children: [
+                    TodaysWeather(weatherModel: weatherModel),
+                    WeatherByHours(weatherModel: weatherModel),
+                    WeatherByDays(weatherModel: weatherModel),
+                  ],
+                ),
+            );
+          },
+        )
+      ),
+    );
+  }
 
   // search Dialog box
   _showTextInputDialog(BuildContext context) async {
@@ -39,12 +103,13 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           actions: [
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text("Cancel")),
-            ElevatedButton(
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text("Cancel"),
+            ),
+            TextButton(
               onPressed: () {
                 if (_searchTextField.text.isEmpty) {
                   return;
@@ -56,87 +121,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         );
       },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.blueGrey,
-      appBar: AppBar(
-        title: const Text("Weather App"),
-        actions: [
-          IconButton(
-            onPressed: () async {
-              _searchTextField.clear();
-              String text = await _showTextInputDialog(context);
-              setState(() {
-                searchText = text;
-              });
-            },
-            icon: const Icon(Icons.search),
-          ),
-          IconButton(
-            onPressed: () {
-              searchText = "auto:ip";
-              setState(() {});
-            },
-            icon: const Icon(Icons.location_on),
-          ),
-        ],
-      ),
-
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: FutureBuilder(
-            future: apiService.getWeatherData(searchText),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                final WeatherModel? weatherModel = snapshot.data;
-                return SizedBox(
-                  height: MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.width,
-                  child: Column(
-                    children: [
-                      TodaysWeather(weatherModel: weatherModel),
-                      const SizedBox(height: 10),
-                      const Text(
-                        "Weather By Hours",
-                        style: TextStyle(fontSize: 20, color: Colors.white),
-                      ),
-                      const SizedBox(height: 10),
-                      WeatherByHours(weatherModel: weatherModel),
-                      const SizedBox(height: 10),
-                      const Text(
-                        "Next 7 Days Weather",
-                        style: TextStyle(fontSize: 20, color: Colors.white),
-                      ),
-                      const SizedBox(height: 10),
-                      WeatherByDays(weatherModel: weatherModel),
-                      const SizedBox(height: 10),
-                    ],
-                  ),
-                );
-              }
-              if (snapshot.hasError) {
-                return Center(
-                  child: Text(
-                    snapshot.toString(),
-                    style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 15,
-                    ),
-                  ),
-                );
-              }
-
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            },
-          ),
-        ),
-      ),
     );
   }
 }

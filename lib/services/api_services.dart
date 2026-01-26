@@ -35,3 +35,34 @@ class ApiService{
     }
 
  }
+
+// class ApiService {
+//   Future<WeatherModel> getWeatherData(String searchText) async {
+//     try {
+//       // safety check
+//       if (searchText.isEmpty) {
+//         throw "Search text is empty";
+//       }
+//
+//       final String url = "$base_url&q=$searchText&days=7";
+//       final Uri uri = Uri.parse(url);
+//
+//       final Response response = await get(uri);
+//
+//       if (response.statusCode == 200) {
+//         final Map<String, dynamic> json = jsonDecode(response.body);
+//
+//         // 🔥 VERY IMPORTANT CHECK
+//         if (json.containsKey('error')) {
+//           throw json['error']['message'];
+//         }
+//
+//         return WeatherModel.fromJson(json);
+//       } else {
+//         throw "Server error: ${response.statusCode}";
+//       }
+//     } catch (e) {
+//       throw e.toString();
+//     }
+//   }
+// }

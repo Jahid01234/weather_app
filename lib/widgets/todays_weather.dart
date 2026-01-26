@@ -14,7 +14,7 @@ class TodaysWeather extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    WeatherType _getWeatherType(Current? current) {
+    WeatherType getWeatherType(Current? current) {
       if (current?.isDay == 1) {
         if (current?.condition?.text == "Sunny") {
           return WeatherType.sunny;
@@ -63,7 +63,7 @@ class TodaysWeather extends StatelessWidget {
       children: [
         // 1st weatherBg 
         WeatherBg(
-            weatherType: _getWeatherType(weatherModel?.current),
+            weatherType: getWeatherType(weatherModel?.current),
             width: MediaQuery.sizeOf(context).width,
             height: 305,
         ),
@@ -94,7 +94,8 @@ class TodaysWeather extends StatelessWidget {
                     ),
                     Text(
                         DateFormat.yMMMMEEEEd().format(
-                          DateTime.parse(weatherModel?.current?.lastUpdated ?? ''),
+                          DateTime.parse(weatherModel?.current?.lastUpdated ?? '',
+                          ),
                         ),
                         style: const TextStyle(
                             color: Colors.white,

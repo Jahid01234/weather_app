@@ -13,7 +13,7 @@ class WeatherByHours extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 150,
+      height: 160,
       child: ListView.builder(
           shrinkWrap: true,
           scrollDirection: Axis.horizontal,
