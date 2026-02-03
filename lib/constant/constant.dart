@@ -1,1 +1,1 @@
-const base_url = "http://api.weatherapi.com/v1/forecast.json?key=34f9cf5de6b9473d8f450448262501";
+const base_url = "your weather api key here.....";
